@@ -104,8 +104,8 @@ posts.forEach((element,index) => {
                                 </div>            
                             </div>`;
     coloredLike();
+    numberLike(element.likes);
 
-    // numberLike(element.likes);
 })
 
 
@@ -119,24 +119,40 @@ posts.forEach((element,index) => {
 
 
 function coloredLike() {
-    let likeBtn = (document.querySelectorAll('.like-button'));
+    let likeBtn = document.querySelectorAll('.like-button');
     for (let i=0; i<likeBtn.length; i++) {
-        console.log(likeBtn[i]);
-        let element = likeBtn[i];
+        const element = likeBtn[i];
         element.addEventListener('click', function(){
             this.classList.toggle('liked');
+            numberLike();
         })
     }
 }
 
-// function numberLike(number) {
-//     const likeBtn = document.querySelectorAll('like-button');
-//         likeBtn.addEventListener('click' , function() {
-//             let newLikes = ++number;
-//             const likeNumber = document.querySelectorAll('js-likes-counter');
-//             likeNumber.innerHTML = newLikes;
+function numberLike(number) {
+        const likeNumber = document.querySelectorAll('.js-likes-counter');
+        for (let i=0; i<likeNumber.length; i++) {
+            let singleNumber = parseInt((likeNumber[i]).textContent);
+            console.log(singleNumber);
+            let domNumber = likeNumber[i];
+            domNumber.innerHTML = ++singleNumber;
+        }
+}
+
+// const numberHeart = 100;
+// const likeBtn = document.querySelectorAll('.like-button');
+//     for (let i=0; i<likeBtn; i++) {
+//         let element = likeBtn[i];
+//         element.addEventListener('click' , function() {
+        
+//             let newLikes = ++numberHeart;
+//             console.log(newLikes);
 //         });
-// }
+//         // const likeNumber = document.querySelectorAll('js-likes-counter');
+//         // likeNumber.innerHTML = newLikes;
+//     }
+
+
 
 // function likedPosts() {
 //     let heartPosts = [];
