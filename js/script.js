@@ -102,12 +102,11 @@ posts.forEach((element) => {
                                 </div>            
                             </div>`
 
-    for(let i=0; i<posts.length; i++) {
-        const likeBtn = document.getElementById('likebtn');
-        likeBtn.addEventListener('click' , function() {
-        this.classList.toggle('liked');
-        });
-    }
+    
+    const likeBtn = document.getElementById('likebtn');
+    likeBtn.addEventListener('click' , function() {
+    this.classList.toggle('liked');
+    });
 })
 
                     
