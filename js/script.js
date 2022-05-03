@@ -69,6 +69,8 @@ const posts = [
 // **Milestone 2** - Prendendo come riferimento il layout di esempio presente nell'html, stampiamo i post del nostro feed.
 
 
+
+
 posts.forEach((element) => {
     const postContainer = document.getElementById('container');
     postContainer.innerHTML += `<div id="post">
@@ -90,7 +92,7 @@ posts.forEach((element) => {
                                 <div class="post__footer">
                                     <div class="likes js-likes">
                                         <div class="likes__cta">
-                                            <a id="likebtn" class="like-button js-like-button" href="#" data-postid="1">
+                                            <a id="likebtn" class="like-button js-like-button" data-postid="1">
                                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                                 <span class="like-button__label">Mi Piace</span>
                                             </a>
@@ -101,19 +103,33 @@ posts.forEach((element) => {
                                     </div> 
                                 </div>            
                             </div>`
+    coloredLike();
+    numberLike(80);
 
-    
-    const likeBtn = document.getElementById('likebtn');
-    likeBtn.addEventListener('click' , function() {
-    this.classList.toggle('liked');
-    });
 })
 
-                    
-                    
+
+
 // **Milestone 3** - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
 
 // fare una funzione dove aggiungiamo la classe al div
 // richiamare la funzione all'interno del ciclo eachfor
+
+function coloredLike() {
+    const likeBtn = document.getElementById('likebtn');
+        likeBtn.addEventListener('click' , function() {
+            this.classList.toggle('liked');
+        });
+}
+
+
+function numberLike(number) {
+    const likeBtn = document.getElementById('likebtn');
+        likeBtn.addEventListener('click' , function() {
+            let newLikes = ++number;
+            const likeNumber = document.getElementById('like-counter-1');
+            likeNumber.innerHTML = newLikes;
+        });
+}
