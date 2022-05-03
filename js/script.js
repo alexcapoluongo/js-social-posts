@@ -103,7 +103,7 @@ posts.forEach((element,index) => {
                                     </div> 
                                 </div>            
                             </div>`;
-    coloredLike();
+    coloredLike(element.likes);
     numberLike(element.likes);
 
 })
@@ -118,22 +118,23 @@ posts.forEach((element,index) => {
 // richiamare la funzione all'interno del ciclo eachfor
 
 
-function coloredLike() {
+function coloredLike(number) {
     let likeBtn = document.querySelectorAll('.like-button');
     for (let i=0; i<likeBtn.length; i++) {
         const element = likeBtn[i];
         element.addEventListener('click', function(){
             this.classList.toggle('liked');
-            numberLike();
+
+            numberLike(++number);
         })
     }
 }
 
 function numberLike(number) {
-        const likeNumber = document.querySelectorAll('.js-likes-counter');
+        const likeNumber = document.querySelectorAll([".like-counter-"]);
+        console.log(likeNumber, number);
         for (let i=0; i<likeNumber.length; i++) {
             let singleNumber = parseInt((likeNumber[i]).textContent);
-            console.log(singleNumber);
             let domNumber = likeNumber[i];
             domNumber.innerHTML = ++singleNumber;
         }
@@ -150,7 +151,7 @@ function numberLike(number) {
 //         });
 //         // const likeNumber = document.querySelectorAll('js-likes-counter');
 //         // likeNumber.innerHTML = newLikes;
-//     }
+//     }-,
 
 
 
