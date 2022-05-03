@@ -71,7 +71,7 @@ const posts = [
 
 
 
-posts.forEach((element) => {
+posts.forEach((element,index) => {
     const postContainer = document.getElementById('container');
     postContainer.innerHTML += `<div id="post">
                                 <div class="post__header">
@@ -92,20 +92,20 @@ posts.forEach((element) => {
                                 <div class="post__footer">
                                     <div class="likes js-likes">
                                         <div class="likes__cta">
-                                            <a id="likebtn" class="like-button js-like-button" data-postid="1">
+                                            <a class="like-button js-like-button" data-postid="${element.id}">
                                                 <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                                                 <span class="like-button__label">Mi Piace</span>
                                             </a>
                                         </div>
                                         <div class="likes__counter">
-                                            Piace a <b id="like-counter-1" class="js-likes-counter">80</b> persone
+                                            Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
                                         </div>
                                     </div> 
                                 </div>            
-                            </div>`
+                            </div>`;
     coloredLike();
-    numberLike(80);
 
+    // numberLike(element.likes);
 })
 
 
@@ -117,19 +117,32 @@ posts.forEach((element) => {
 // fare una funzione dove aggiungiamo la classe al div
 // richiamare la funzione all'interno del ciclo eachfor
 
+
 function coloredLike() {
-    const likeBtn = document.getElementById('likebtn');
-        likeBtn.addEventListener('click' , function() {
+    let likeBtn = (document.querySelectorAll('.like-button'));
+    for (let i=0; i<likeBtn.length; i++) {
+        console.log(likeBtn[i]);
+        let element = likeBtn[i];
+        element.addEventListener('click', function(){
             this.classList.toggle('liked');
-        });
+        })
+    }
 }
 
+// function numberLike(number) {
+//     const likeBtn = document.querySelectorAll('like-button');
+//         likeBtn.addEventListener('click' , function() {
+//             let newLikes = ++number;
+//             const likeNumber = document.querySelectorAll('js-likes-counter');
+//             likeNumber.innerHTML = newLikes;
+//         });
+// }
 
-function numberLike(number) {
-    const likeBtn = document.getElementById('likebtn');
-        likeBtn.addEventListener('click' , function() {
-            let newLikes = ++number;
-            const likeNumber = document.getElementById('like-counter-1');
-            likeNumber.innerHTML = newLikes;
-        });
-}
+// function likedPosts() {
+//     let heartPosts = [];
+//     const likedPost = document.getElementById('post');
+//     const likeBtn = document.getElementById('likebtn');
+//     likeBtn.addEventListener('click' , function() {
+//        heartPosts.push()
+//     });
+// }
