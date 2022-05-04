@@ -71,40 +71,14 @@ const posts = [
 
 
 
-posts.forEach((element,index) => {
-    const postContainer = document.getElementById('container');
-    postContainer.innerHTML += `<div id="post">
-                                <div class="post__header">
-                                    <div class="post-meta">                    
-                                        <div class="post-meta__icon">
-                                            <img class="profile-pic" src="${element.author.image}" alt="${element.name}">                    
-                                        </div>
-                                        <div class="post-meta__data">
-                                            <div class="post-meta__author">${element.author.name}</div>
-                                            <div class="post-meta__time">${element.created}</div>
-                                        </div>                    
-                                    </div>
-                                </div>
-                                <div class="post__text">${element.content}</div>
-                                <div class="post__image">
-                                    <img src="${element.media}" alt="">
-                                </div>
-                                <div class="post__footer">
-                                    <div class="likes js-likes">
-                                        <div class="likes__cta">
-                                            <a class="like-button js-like-button" data-postid="${element.id}">
-                                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
-                                                <span class="like-button__label">Mi Piace</span>
-                                            </a>
-                                        </div>
-                                        <div class="likes__counter">
-                                            Piace a <b id="like-counter-${element.id}" class="js-likes-counter">${element.likes}</b> persone
-                                        </div>
-                                    </div> 
-                                </div>            
-                            </div>`;
-    coloredLike(element.likes);
-    numberLike(element.likes);
+const postContainer = document.getElementById('container');
+posts.forEach((post) => {
+    //crea elemento dom
+    const createdPost = createPostElement(post);
+    //appendi al container
+    postContainer.innerHTML += createdPost;
+    // coloredLike(element.likes);
+    // numberLike(element.likes);
 
 })
 
@@ -113,32 +87,92 @@ posts.forEach((element,index) => {
 // **Milestone 3** - Se clicchiamo sul tasto "Mi Piace" cambiamo il colore al testo del bottone e incrementiamo il counter dei likes relativo.
 // Salviamo in un secondo array gli id dei post ai quali abbiamo messo il like.
 
+// al click sul like
+const likedPosts = [];
+const likeButtons = document.querySelectorAll('.js-like-button');
+likeButtons.forEach( (button, index) => {
+    button.addEventListener('click', function(event) {
+        //togliere l'evento del href che ti riporta a inizio pagina
+        event.preventDefault();
+        // - cambiare il colore al bottone
+        this.classList.toggle('liked')
+        // - INCREMENTARE IL COUNTER
+        // preleviamo il post cliccato tramite l'index del bottone nell'array (intero oggetto)
+        const clickedPost = posts[index];
+        // preleva id oggetto cliccato
+        const clickedPostId = clickedPost.id;
+        // preleva la classe elemento che contiene numeor likes
+        const likeCounter = document.getElementById(`like-counter-${clickedPostId}`);
+        let likesNumber = parseInt(likeCounter.textContent);
+        likeCounter.innerHTML = ++likesNumber;
+        // -salvare in un secondo array l'id dei liked post
+        likedPosts.push(clickedPostId);
+        console.log(likedPosts);
+    })
+})
 
-// fare una funzione dove aggiungiamo la classe al div
-// richiamare la funzione all'interno del ciclo eachfor
+/**
+ * Description: fuzione che crea elemento DOM per un post
+ * @param {any} postObject ->  oggetto con dati da inserire del dom
+ * @returns {any} -> elemento html
+ */
+function createPostElement(postObject) {
+    const {id, content, author, media, likes, created} = postObject;
+    const postElement =        `<div id="post">
+                                <div class="post__header">
+                                    <div class="post-meta">                    
+                                        <div class="post-meta__icon">
+                                            <img class="profile-pic" src="${author.image}" alt="${name}">                    
+                                        </div>
+                                        <div class="post-meta__data">
+                                            <div class="post-meta__author">${author.name}</div>
+                                            <div class="post-meta__time">${created}</div>
+                                        </div>                    
+                                    </div>
+                                </div>
+                                <div class="post__text">${content}</div>
+                                <div class="post__image">
+                                    <img src="${media}" alt="">
+                                </div>
+                                <div class="post__footer">
+                                    <div class="likes js-likes">
+                                        <div class="likes__cta">
+                                            <a class="like-button js-like-button" href=# data-postid="${id}">
+                                                <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
+                                                <span class="like-button__label">Mi Piace</span>
+                                            </a>
+                                        </div>
+                                        <div class="likes__counter">
+                                            Piace a <b id="like-counter-${id}" class="js-likes-counter">${likes}</b> persone
+                                        </div>
+                                    </div> 
+                                </div>            
+                            </div>`;
 
-
-function coloredLike(number) {
-    let likeBtn = document.querySelectorAll('.like-button');
-    for (let i=0; i<likeBtn.length; i++) {
-        const element = likeBtn[i];
-        element.addEventListener('click', function(){
-            this.classList.toggle('liked');
-
-            numberLike(++number);
-        })
-    }
+    return postElement;
 }
 
-function numberLike(number) {
-        const likeNumber = document.querySelectorAll([".like-counter-"]);
-        console.log(likeNumber, number);
-        for (let i=0; i<likeNumber.length; i++) {
-            let singleNumber = parseInt((likeNumber[i]).textContent);
-            let domNumber = likeNumber[i];
-            domNumber.innerHTML = ++singleNumber;
-        }
-}
+// function coloredLike(number) {
+//     let likeBtn = document.querySelectorAll('.like-button');
+//     for (let i=0; i<likeBtn.length; i++) {
+//         const element = likeBtn[i];
+//         element.addEventListener('click', function(){
+//             this.classList.toggle('liked');
+
+//             numberLike(++number);
+//         })
+//     }
+// }
+
+// function numberLike(number) {
+//         const likeNumber = document.querySelectorAll([".like-counter-"]);
+//         console.log(likeNumber, number);
+//         for (let i=0; i<likeNumber.length; i++) {
+//             let singleNumber = parseInt((likeNumber[i]).textContent);
+//             let domNumber = likeNumber[i];
+//             domNumber.innerHTML = ++singleNumber;
+//         }
+// }
 
 // const numberHeart = 100;
 // const likeBtn = document.querySelectorAll('.like-button');
