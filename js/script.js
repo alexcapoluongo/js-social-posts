@@ -126,7 +126,7 @@ function createPostElement(postObject) {
                                         </div>
                                         <div class="post-meta__data">
                                             <div class="post-meta__author">${author.name}</div>
-                                            <div class="post-meta__time">${created}</div>
+                                            <div class="post-meta__time">${formatDate(created)}</div>
                                         </div>                    
                                     </div>
                                 </div>
@@ -152,48 +152,23 @@ function createPostElement(postObject) {
     return postElement;
 }
 
-// function coloredLike(number) {
-//     let likeBtn = document.querySelectorAll('.like-button');
-//     for (let i=0; i<likeBtn.length; i++) {
-//         const element = likeBtn[i];
-//         element.addEventListener('click', function(){
-//             this.classList.toggle('liked');
+//  BONUS 1
 
-//             numberLike(++number);
-//         })
-//     }
-// }
+    //formatta le date in data italiana
 
-// function numberLike(number) {
-//         const likeNumber = document.querySelectorAll([".like-counter-"]);
-//         console.log(likeNumber, number);
-//         for (let i=0; i<likeNumber.length; i++) {
-//             let singleNumber = parseInt((likeNumber[i]).textContent);
-//             let domNumber = likeNumber[i];
-//             domNumber.innerHTML = ++singleNumber;
-//         }
-// }
+//yyyy-mm-dd [yyyy, mm, gg] -> [gg, mm, yyyy] -> gg, mm, yyyy
 
-// const numberHeart = 100;
-// const likeBtn = document.querySelectorAll('.like-button');
-//     for (let i=0; i<likeBtn; i++) {
-//         let element = likeBtn[i];
-//         element.addEventListener('click' , function() {
-        
-//             let newLikes = ++numberHeart;
-//             console.log(newLikes);
-//         });
-//         // const likeNumber = document.querySelectorAll('js-likes-counter');
-//         // likeNumber.innerHTML = newLikes;
-//     }-,
+/**
+ * Description: funzione che formatta data americana in formato italiano
+ * @param {any} originalDate: data americana
+ * @returns {any} stringa
+ */
+function formatDate(originalDate) {
+    const originalDateArray = originalDate.split("-");
+    console.log(originalDateArray);
+    const reversedDateArray = originalDateArray.reverse();
+    const italianDateString = reversedDateArray.join("/")
+    return italianDateString
+}
 
-
-
-// function likedPosts() {
-//     let heartPosts = [];
-//     const likedPost = document.getElementById('post');
-//     const likeBtn = document.getElementById('likebtn');
-//     likeBtn.addEventListener('click' , function() {
-//        heartPosts.push()
-//     });
-// }
+//  BONUS 2
